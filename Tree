@@ -1,0 +1,166 @@
+/***********************************************
+
+二叉树的基本操作(采用遍历的方法来实现)
+
+1. 二叉树的创建（void CreatTree(BITNode ** T)）
+
+2. 二叉树的先序遍历（void PreOrderbiTree(BITNode *T)）
+
+3.二叉树的中序遍历（middleOrderbiTree(BITNode *T)）
+
+4.二叉树的后续遍历（PostOrderbiTree(BITNode *T)）
+
+5.主函数（ BITNode *T;   // 声明二叉树对象）
+
+6.二叉树的结构定义
+typedef struct BITNode{
+int data;
+struct BITNode *lchild;
+struct BITNode *rchild;
+}BITNode
+**********************************
+crerte by: XiaoLin
+
+timestamp: 2020/12/01/11:30
+**********************************
+
+***********************************************/
+
+
+#include<iostream>
+
+using namespace std;
+
+typedef struct BITNode
+{
+int data;
+
+struct BTNode *lchild;
+
+struct BTNode *rchild;
+
+}BITNode;
+
+void CreatTree(BITNode ** T){
+
+	int n;   //用于记入根节点的值
+    
+	cin>>n;
+
+	if(n==-1)  // 当根节点输入值为-1时停止输入
+	{
+	*T =NULL;   //此处节点的指向为空
+
+	return ;
+	
+	}
+
+	else {
+	
+	*T = (BITNode*)malloc(sizeof(BITNode));  //  当输入的值不为-1 时 ，为T  申请空间,空间的大小为BITNode
+
+	(*T)->data  =  n;                      //  键入的放进树存储的空间
+
+	cout<<"请输入左节点：";                
+
+	CreatTree(&((*T)->lchild));            //传入节点的左指针 ，指向二叉树 的下一个节点
+	//
+    cout<<"请输入右节点：";
+
+	CreatTree(&((*T)->rchild));
+	
+	}
+
+}
+
+//先序遍历
+void PreOrderbiTree(BITNode *T)
+
+{
+
+	if(T == NULL){
+	
+	return ;
+	
+	}
+	else {
+	
+	cout<<T->data;
+
+	PreOrderbiTree(T->lchild);
+
+	PreOrderbiTree(T->rchild);
+	}
+}
+//中序遍历
+void middleOrderbiTree(BITNode *T)
+{
+
+if(T == NULL)
+
+	return ;
+
+else {
+
+	 middleOrderbiTree(T->lchild);
+
+	 cout<<T->data;
+
+	 middleOrderbiTree(T->rchild);
+
+}
+
+}
+
+void PostOrderbiTree(BITNode *T)
+{
+
+if(T==NULL)
+{
+
+return ;
+}
+else{
+
+	PostOrderbiTree(T->lchild);
+	
+	PostOrderbiTree(T->rchild);
+	
+	cout<<T->data;
+}
+}
+int main()
+{
+
+
+    BITNode *T;   // 声明二叉树对象
+
+    printf("请输入第一个节点的值，-1表示没有叶节点：\n");
+  
+	CreatTree(&T);  // 创建二叉树采用递归的实现方法  
+
+    printf("先序遍历二叉树：");
+     
+	PreOrderbiTree(T);
+    
+	printf("\n");
+
+    printf("中序遍历二叉树：");
+    
+	middleOrderbiTree(T);
+    
+	printf("\n");
+
+    printf("后续遍历二叉树：");
+    
+	PostOrderbiTree(T);    
+    
+	printf("\n");
+
+	system("pause");  //暂停，来显示结果
+	
+	return 0;
+
+}
+
+
